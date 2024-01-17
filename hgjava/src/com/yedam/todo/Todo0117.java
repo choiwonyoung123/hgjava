@@ -14,5 +14,10 @@ public class Todo0117 {
 			System.out.println("연락처를 입력 >> ");
 			tel[i] = scn.nextLine();
 		}
+		for(int i = 0; i < 3; i++) {			
+			System.out.println("이름: " + name[i]);
+			System.out.println("연락처: " + tel[i]);
+			System.out.println("====================");
+		}
 	}
 }
