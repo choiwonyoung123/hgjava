@@ -10,9 +10,9 @@ public class Todo0117 {
 		Scanner scn = new Scanner(System.in);
 		for(int i = 0; i < 3; i++) {
 			System.out.println("이름을 입력 >> ");
-			name[i] = scn.nextLine();
+			name[i] = scn.next();
 			System.out.println("연락처를 입력 >> ");
-			tel[i] = scn.nextLine();
+			tel[i] = scn.next();
 		}
 		for(int i = 0; i < 3; i++) {			
 			System.out.println("이름: " + name[i]);

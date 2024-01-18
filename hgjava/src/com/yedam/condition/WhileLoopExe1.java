@@ -19,7 +19,7 @@ public class WhileLoopExe1 {
 				cnt++;
 			}
 			else if(random == input) {
-				System.out.printf("임의의 값은 %d입니다!\n",random);
+				System.out.printf("임의의 값은 %d였습니다!\n",random);
 				cnt++;
 				if(cnt <= 10) {					
 					System.out.printf("%d번 만에 맞추셨습니다!!!\n", cnt);
