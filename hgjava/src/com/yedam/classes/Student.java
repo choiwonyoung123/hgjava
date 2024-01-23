@@ -11,6 +11,7 @@ public class Student {
 	String sname;
 	int score;
 	double height;
+	private boolean onSchool;
 	
 	
 	
@@ -88,6 +89,13 @@ public class Student {
 	}
 	public String getSno() {
 		return this.sno;
+	}
+	
+	public boolean isOnSchool() {
+		return onSchool;
+	}
+	public void setOnSchool(boolean onSchool) {
+		this.onSchool = onSchool;
 	}
 	
 }

@@ -3,7 +3,7 @@ package com.yedam.classes;
 import java.util.Scanner;
 
 public class MainExe {
-	//스캐너 필드
+	//스캐너 선언
 	static Scanner scn = new Scanner(System.in);
 	//정적변수 선언,초기화
 	static String sno = "", sname = "";
