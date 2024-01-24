@@ -29,7 +29,7 @@ public class CalendarExe {
 			e.printStackTrace();
 		}
 		//System.out.println(date.getYear()+1900);
-		System.out.println(date.getMonth());
+		//System.out.println(date.getMonth());
 		//System.out.println(date.getDate());
 
 		
@@ -39,6 +39,24 @@ public class CalendarExe {
 	//날짜계산
 	static void drawCalendar(Date date) {
 		//문자열로 넣어서 날짜계산
+		Calendar cal = Calendar.getInstance();
+		cal.set(date.getYear(), date.getMonth()-1, date.getDate());
+		int pos = cal.get(Calendar.DAY_OF_WEEK) - 1;
+		int lastDate = cal.getActualMaximum(Calendar.DATE);
+		System.out.println(" SUN MON TUE WED THU FRI SAT");
+		//String[] days = {"sun", "mon", "tue", "wed", "thu", "fri", "sat"};
+		for(int i = 0; i < pos; i++) {
+			System.out.printf("%4s", " ");
+		}
+		for(int i = 1; i <= lastDate; i++) {
+			System.out.printf("%4d", i);
+			if(i % 7 == (7-pos)) {
+				System.out.println();
+			}
+//			if(i % 7 == 0) {
+//				System.out.println();
+//			}
+		}
 	}
 	//날짜계산 - calendar 클래스
 	static void drawCalendar(int year, int month) {

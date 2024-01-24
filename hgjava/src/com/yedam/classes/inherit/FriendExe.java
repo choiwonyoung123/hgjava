@@ -11,11 +11,13 @@ public class FriendExe {
 		FriendApp app = new FriendApp();
 		
 		while(run) {
-			
+			int menu = 0;
 			System.out.println("메뉴: 1.등록  2.조회  3.수정  4.삭제  9.종료");
-			
-			int menu = Integer.parseInt(scn.nextLine());
-			
+			try {				
+				menu = Integer.parseInt(scn.nextLine());
+			}catch (NumberFormatException e) {
+				System.out.println("번호를 다시 입력하세요.");
+			}
 			switch(menu) {
 			//등록 - 이름, 연락처, (학교, 전공), (회사, 부서)
 			case 1: 
