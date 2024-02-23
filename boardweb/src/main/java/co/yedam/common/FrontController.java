@@ -53,7 +53,7 @@ public class FrontController extends HttpServlet{
 		controls.put("/addBoard.do", new AddBoard());
 		
 		//회원관련
-		controls.put("/loginForm.do", new LoginForm());
+		controls.put("/LoginForm.do", new LoginForm());
 		controls.put("/login.do", new LoginControl());
 	}
 	

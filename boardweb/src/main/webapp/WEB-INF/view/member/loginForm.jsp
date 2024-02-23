@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ tablib uri ="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:include page="../includes/header.jsp"></jsp:include>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:include page="../../includes/header.jsp"></jsp:include>
 
-	<c:if test="${!empty message}">
-		<p>${message }</p>
-	</c:if>
+<c:if test="${!empty message }">
+ 	<p>${message }</p>
+</c:if>
 
 	<form action="login.do" method="post"> 
 		<table class="table">
@@ -18,11 +18,11 @@
 				<td><input type="password" name="pw"></td>
 			</tr>
 			<tr>
-				<td colsapn="2" align="center">
+				<td colspan="2" align="center">
 					<button type="submit" class="btn btn-primary">로그인</button>
 				</td>
 			</tr>
 		</table>
 	</form>
 
-<jsp:include page="../includes/footer.jsp"></jsp:include>
+<jsp:include page="../../includes/footer.jsp"></jsp:include>
