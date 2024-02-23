@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.board.mapper.BoardMapper">
+  <select id="boardList" resultType="board" parameterType="search">
+    SELECT RN,
+           BOARD_NO,
+           TITLE,
+           CONTENT,
+           WRITER,
+           VIEW_CNT,
+           CREATE_DATE
+    FROM   (SELECT /*+ INDEX(B BOARD_PK) */ ROWNUM RN, B.* 
+            FROM TBL_BOARD B
+            <where>
+            <!-- 조건문 -->
+            <choose>
+            	<when test="searchCondition == 'T'.toString()">
+            		title like '%'||#{keyword}||'%'
+            	</when>
+            	<when test="searchCondition == 'W'.toString()">
+            		writer like '%'||#{keyword}||'%'
+            	</when>
+            	<when test="searchCondition == 'TW'.toString()">
+            		(title like '%'||#{keyword}||'%' or writer like '%'||#{keyword}||'%')
+            	</when>
+            </choose>
+            <![CDATA[
+            AND ROWNUM <= (#{page} * 5) 
+            ]]>
+            </where>
+            ) A
+    WHERE   A.RN > (#{page} - 1) * 5
+  </select>
+  <select id ="getTotalCnt" resultType="int" parameterType="search">
+  	select count(*)
+  	from tbl_board
+  	<where> 
+    <!-- 조건문 -->
+    <choose>
+    	<when test="searchCondition == 'T'.toString()">
+         	title like '%'||#{keyword}||'%'
+        </when>
+        <when test="searchCondition == 'W'.toString()">
+            writer like '%'||#{keyword}||'%'
+        </when>
+        <when test="searchCondition == 'TW'.toString()">
+            (title like '%'||#{keyword}||'%' or writer like '%'||#{keyword}||'%')
+        </when>
+    </choose>
+    </where>
+  </select>
+  <select id="selectBoard" parameterType="int" resultType="board">
+  	select board_no, title, content, writer, view_cnt, create_date 
+  	from tbl_board 
+  	where board_no = #{bno}
+  </select>
+  <update id="updateCount" parameterType="int">
+  	UPDATE TBL_BOARD
+    SET    VIEW_CNT = VIEW_CNT + 1
+    WHERE  BOARD_NO = #{bno}
+  </update>
+  <update id="modifyBoard" parameterType="board">
+  	update tbl_board
+    set    title= #{title},
+           content = #{content}
+    where  board_no = #{boardNo}
+  </update>
+  <delete id="removeBoard" parameterType="int">
+  	delete tbl_board
+  	where  board_no = #{bno}
+  </delete>
+  <insert id="addBoard">
+  	insert into tbl_board(board_no, title, content, writer)
+  	values (board_seq.nextval, #{title}, #{content}, #{writer})
+  </insert>
+</mapper>
