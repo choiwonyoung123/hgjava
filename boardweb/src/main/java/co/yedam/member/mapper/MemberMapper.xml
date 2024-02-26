@@ -9,4 +9,12 @@
   	where id = #{id}
   	and pw = #{pw}
   </select>
+  <insert id="insertMember">
+  	insert into tbl_member(id, pw, name, auth, image)
+  	values(#{id}, #{pw}, #{name}, 'user', #{img})
+  </insert>
+  <select id="memberList" parameterType="co.yedam.member.Member">
+  	select id, name, auth, image
+  	from tbl_member
+  </select>
 </mapper>

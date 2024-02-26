@@ -21,7 +21,7 @@ public class BoardControl implements Control {
 		Board board = svc.getBoard(Integer.parseInt(bno));
 		
 		req.setAttribute("board", board);
-		String path = "WEB-INF/view/board.jsp";
+		String path = "board/board.tiles";
 		req.getRequestDispatcher(path).forward(req, resp);
 	}
 

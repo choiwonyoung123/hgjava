@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<jsp:include page="../includes/header.jsp"></jsp:include>
+
 <style>
 .center{
   display: block;
@@ -97,4 +97,3 @@ ${keyword }
 	 	<a href="boardList.do?page=${page.startPage + 1 }&searchCondition=${searchCondition }&keyword=${keyword }"> &Laquo; </a>
 	</c:if>
 	</div>
-<jsp:include page="../includes/footer.jsp"></jsp:include>

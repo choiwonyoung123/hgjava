@@ -18,8 +18,12 @@ import co.yedam.board.control.ModifyBoard;
 import co.yedam.board.control.RemoveBoard;
 import co.yedam.board.control.RemoveForm;
 import co.yedam.board.control.UpdateForm;
+import co.yedam.member.control.AddMemberControl;
+import co.yedam.member.control.AddMemberForm;
 import co.yedam.member.control.LoginControl;
 import co.yedam.member.control.LoginForm;
+import co.yedam.member.control.LogoutControl;
+import co.yedam.member.control.MemberListForm;
 
 // init > service > destroy
 
@@ -55,6 +59,13 @@ public class FrontController extends HttpServlet{
 		//회원관련
 		controls.put("/LoginForm.do", new LoginForm());
 		controls.put("/login.do", new LoginControl());
+		controls.put("/Logout.do", new LogoutControl());
+		
+		//회원등록
+		controls.put("/addMember.do", new AddMemberControl());
+		controls.put("/addMemberForm.do", new AddMemberForm());
+		
+		controls.put("/memberList.do", new MemberListForm());
 	}
 	
 	//service = 실행 마다
@@ -72,9 +83,5 @@ public class FrontController extends HttpServlet{
 		Control control = controls.get(path); //path > (맵)키에 대한 값
 		control.exec(req, resp); //요청 url에 따른 실행컨트롤 호출
 	}
-	
 	//destroy
-	
-	
-	
 }

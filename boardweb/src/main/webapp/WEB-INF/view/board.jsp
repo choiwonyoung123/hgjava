@@ -1,7 +1,8 @@
 <%@page import="co.yedam.board.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../includes/header.jsp"></jsp:include>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 	
 	${board }
 	<h3>상세조회</h3>
@@ -29,13 +30,23 @@
 	 	</tr>
 	 	<tr>
 	 		<td colspan="4" align="center">
-	 			<button type="submit" class="btn btn-primary">수정</button>
-	 			<button type="button" class="btn btn-warning" onclick="removeFunc()">삭제</button>
+	 		<!-- 글에 대한 작성자와 세션의 아이디를 비교 -->
+	 		<!-- 같은면 수정과 삭제 활성화 / 다르면 수정과 삭제 비활성화 -->
+	 		<c:choose>
+	 			<c:when test="${board.writer eq logid }">	 				
+	 				<button type="submit" class="btn btn-primary">수정</button>
+	 				<button type="button" class="btn btn-warning" onclick="removeFunc()">삭제</button>
+	 			</c:when>
+	 			<c:otherwise>
+	 				<button type="submit" class="btn btn-primary" disabled>수정</button>
+	 				<button type="button" class="btn btn-warning" onclick="removeFunc()" disabled>삭제</button>
+	 			</c:otherwise>
+	 		</c:choose>
 	 		</td>
 	 	</tr>
 	 </table>
 	</form>
-<jsp:include page="../includes/footer.jsp"></jsp:include>
+
 <script>
 	function removeFunc(){
 		let form = document.querySelector('form');

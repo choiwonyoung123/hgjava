@@ -21,7 +21,7 @@ public class UpdateForm implements Control {
 		Board board = svc.getBoard(Integer.parseInt(bno));
 		
 		req.setAttribute("board", board);
-		String path = "WEB-INF/view/updateForm.jsp";
+		String path = "board/updateForm.tiles";
 		req.getRequestDispatcher(path).forward(req, resp);
 	}
 

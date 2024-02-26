@@ -33,7 +33,7 @@ public class AddBoard implements Control {
 		}
 		else {
 			req.setAttribute("message", "수정 중 에러 발생");
-			String path = "WEB-INF/view/error.jsp";
+			String path = "board/error.tiles";
 			req.getRequestDispatcher(path).forward(req, resp);
 		}
 	}

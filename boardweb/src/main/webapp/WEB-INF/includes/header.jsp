@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,13 +18,36 @@
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
+            	<!-- 로그인의 아이디 파라미터를 받아와서 값이 없으면 손님 출력 / 값이 있으면 사용자 이름 출력 -->     		
+            	<c:choose>
+            		<c:when test="${empty logName }">   
+	                	<div class="sidebar-heading border-bottom bg-light">Start Bootstrap (손님)</div>
+            		</c:when>
+            		<c:otherwise>    		
+		                <div class="sidebar-heading border-bottom bg-light">Start Bootstrap (${logName })</div>
+            		</c:otherwise>            	
+            	</c:choose>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="boardList.do">게시글 목록</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="addForm.do">게시글 등록</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="LoginForm.do">로그인</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
+                    <!-- 세션 아이디가 없으면 사이드바에서 로그인 보여주기 / 아이디가 있으면 사이드바에서 로그아웃 보여주기 -->
+                    <c:choose>
+                    	<c:when test="${empty logid }">
+                    		<a class="list-group-item list-group-item-action list-group-item-light p-3" href="LoginForm.do">로그인</a>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<!-- 로그인 했을때만 사이드바에서 게시글등록 메뉴 보여주기 -->                  	
+		                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="addForm.do">게시글 등록</a>
+                    		<c:choose>
+                    			<c:when test="${logName eq '관리자' }">                    		
+                    				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberList.do">회원목록</a>
+                    			</c:when>
+                    			<c:otherwise>
+                    				<a class="list-group-item list-group-item-action list-group-item-light p-3" href="memberList.do">회원목록</a>
+                    			</c:otherwise>                    
+                    		</c:choose>
+                    		<a class="list-group-item list-group-item-action list-group-item-light p-3" href="Logout.do">로그아웃</a>
+                    	</c:otherwise>
+                    </c:choose>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
                 </div>
             </div>

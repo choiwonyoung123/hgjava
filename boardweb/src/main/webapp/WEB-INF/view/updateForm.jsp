@@ -1,7 +1,8 @@
 <%@page import="co.yedam.board.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../includes/header.jsp"></jsp:include>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 
 	<%
 		Board board = (Board) request.getAttribute("board");
@@ -33,11 +34,18 @@
 	 	</tr>
 	 	<tr>
 	 		<td colspan="4" aligh="center">
-	 			<button type="submit" class="btn btn-primary">저장</button>
-	 			<button type="reset" class="btn btn-warning">취소</button>
+	 		<c:choose>
+				<c:when test="${board.getWriter() eq logid }">				
+	 				<button type="submit" class="btn btn-primary">저장</button>
+	 				<button type="reset" class="btn btn-warning">취소</button>
+				</c:when>	 	
+				<c:otherwise>
+					<button type="submit" class="btn btn-primary" disabled>저장</button>
+	 				<button type="reset" class="btn btn-warning" disabled>취소</button>
+				</c:otherwise>	
+	 		</c:choose>
 	 		</td>
 	 	</tr>
 	 </table>
 	</form>
 
-<jsp:include page="../includes/footer.jsp"></jsp:include>

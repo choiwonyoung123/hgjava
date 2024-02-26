@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="../includes/header.jsp"></jsp:include>
+
 
 	<h3>등록화면</h3>
 	<form action="addBoard.do" method="post">
@@ -15,7 +15,8 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" class="form-control" name="writer"></td>
+				<!-- 세션 아이디가 있으면 글을 작성할때 읽기전용 설정 -->
+				<td><input type="text" class="form-control" name="writer" value="${logid }" readonly></td>
 			</tr>
 			<tr>
 				<td align="center" colspan="2">				
@@ -26,4 +27,3 @@
 		</table>
 	</form>
 
-<jsp:include page="../includes/footer.jsp"></jsp:include>

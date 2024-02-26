@@ -21,7 +21,7 @@ public class RemoveForm implements Control {
 		Board board = svc.getBoard(Integer.parseInt(bno));
 		
 		req.setAttribute("board", board);
-		String path = "WEB-INF/view/deleteForm.jsp";
+		String path = "board/deleteForm.tiles";
 		req.getRequestDispatcher(path).forward(req, resp);
 	}
 }
