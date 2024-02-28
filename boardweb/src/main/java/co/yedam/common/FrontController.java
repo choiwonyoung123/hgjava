@@ -43,10 +43,11 @@ public class FrontController extends HttpServlet{
 		//controls.put("/a.do", new Acontrol());
 		//controls.put("/b.do", new Bcontrol());
 		//controls.put("/resume.do", new ResumeForm());
-		
+		//userlist 파일 연결
+		controls.put("/userList.do", new UserListControl());
 		
 		//게시글관련
-		controls.put("/main.do", new MainControl());
+		controls.put("/main1.do", new MainControl());
 		controls.put("/boardList.do", new BoardListControl());
 		controls.put("/board.do", new BoardControl());
 		controls.put("/updateForm.do", new UpdateForm()); //수정화면이동
@@ -66,6 +67,9 @@ public class FrontController extends HttpServlet{
 		controls.put("/addMemberForm.do", new AddMemberForm());
 		
 		controls.put("/memberList.do", new MemberListForm());
+		
+		controls.put("/productList.do", new ProductListControl());
+		controls.put("/cartList.do", new CartListControl());
 	}
 	
 	//service = 실행 마다
