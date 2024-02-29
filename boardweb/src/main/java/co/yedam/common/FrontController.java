@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.yedam.board.control.AddBoard;
+import co.yedam.board.control.AddBookControl;
 import co.yedam.board.control.AddForm;
 import co.yedam.board.control.BoardControl;
 import co.yedam.board.control.BoardListControl;
+import co.yedam.board.control.BookListControl;
 import co.yedam.board.control.ModifyBoard;
 import co.yedam.board.control.RemoveBoard;
+import co.yedam.board.control.RemoveBookControl;
 import co.yedam.board.control.RemoveForm;
 import co.yedam.board.control.UpdateForm;
 import co.yedam.member.control.AddMemberControl;
@@ -70,6 +73,12 @@ public class FrontController extends HttpServlet{
 		
 		controls.put("/productList.do", new ProductListControl());
 		controls.put("/cartList.do", new CartListControl());
+		
+		
+		//ajax연습
+		controls.put("/bookList.do", new BookListControl());
+		controls.put("/addBook.do", new AddBookControl());
+		controls.put("/removeBook.do", new RemoveBookControl());
 	}
 	
 	//service = 실행 마다

@@ -33,4 +33,63 @@
             ) A
     WHERE   A.RN > (#{page} - 1) * 5
   </select>
+  <select id ="getTotalCnt" resultType="int" parameterType="search">
+  	select count(*)
+  	from tbl_board
+  	<where> 
+    <!-- 조건문 -->
+    <choose>
+    	<when test="searchCondition == 'T'.toString()">
+         	title like '%'||#{keyword}||'%'
+        </when>
+        <when test="searchCondition == 'W'.toString()">
+            writer like '%'||#{keyword}||'%'
+        </when>
+        <when test="searchCondition == 'TW'.toString()">
+            (title like '%'||#{keyword}||'%' or writer like '%'||#{keyword}||'%')
+        </when>
+    </choose>
+    </where>
+  </select>
+  <select id="selectBoard" parameterType="int" resultType="board">
+  	select board_no, title, content, writer, view_cnt, create_date 
+  	from tbl_board 
+  	where board_no = #{bno}
+  </select>
+  <update id="updateCount" parameterType="int">
+  	UPDATE TBL_BOARD
+    SET    VIEW_CNT = VIEW_CNT + 1
+    WHERE  BOARD_NO = #{bno}
+  </update>
+  <update id="modifyBoard" parameterType="board">
+  	update tbl_board
+    set    title= #{title},
+           content = #{content}
+    where  board_no = #{boardNo}
+  </update>
+  <delete id="removeBoard" parameterType="int">
+  	delete tbl_board
+  	where  board_no = #{bno}
+  </delete>
+  <insert id="addBoard">
+  	insert into tbl_board(board_no, title, content, writer)
+  	values (board_seq.nextval, #{title}, #{content}, #{writer})
+  </insert>
+  <!-- 도서목록 -->
+  <select id="bookList" resultType="co.yedam.board.Book">
+  	select book_code,
+  	       book_name,
+  	       author,
+  	       press,
+  	       price
+  	from   tbl_book
+  </select>
+  <insert id="insertBook" parameterType="co.yedam.board.Book">
+  	insert into tbl_book
+  	values (#{bookCode}, #{bookName}, #{author}, #{press}, #{price})
+  </insert>
+  <delete id="deleteBook" parameterType="co.yedam.board.Book">
+  	delete from tbl_book
+  	where  book_code = #{bookCode}
+  </delete>
 </mapper>

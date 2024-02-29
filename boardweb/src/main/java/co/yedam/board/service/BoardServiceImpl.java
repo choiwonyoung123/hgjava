@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.session.SqlSession;
 
 import co.yedam.board.Board;
+import co.yedam.board.Book;
 import co.yedam.board.mapper.BoardMapper;
 import co.yedam.common.DataSource;
 import co.yedam.common.SearchVO;
@@ -53,5 +54,20 @@ public class BoardServiceImpl implements BoardService{
 			return true;
 		}
 		return  false;
+	}
+	@Override
+	public boolean addBook(Book book) {
+		return mapper.insertBook(book) == 1;
+	}
+
+	@Override
+	public List<Book> bookList() {
+		// TODO Auto-generated method stub
+		return mapper.bookList();
+	}
+
+	@Override
+	public boolean removeBook(String bcode) {
+		return mapper.deleteBook(bcode) == 1;
 	}
 }

@@ -1,6 +1,14 @@
 /**
  *  static/js/userList.js 파일 데이터
  */
+
+//var json = { 'NAME':'홍길동', 'SEX':'남', 'AGE':'99세'};
+//for(key in json) {
+//    alert('key:' + key + ' / ' + 'value:' + json[key]);
+//}
+
+
+
 //mockaroo >> json포맷파일 >> 복사붙여넣기
 let str = `[{"id":1,"first_name":"Gloriane","last_name":"Thorp","email":"gthorp0@joomla.org","gender":"Female","salary":4424},
 {"id":2,"first_name":"Broddie","last_name":"Speck","email":"bspeck1@technorati.com","gender":"Male","salary":2745},
@@ -24,7 +32,7 @@ console.log(json);
 
 console.log("userlist.js");
 //document.querySelector('#name').value = '홍길동';
-
+//DOMContentLoaded >> 자바스크립트를 먼저 실행하기 때문에 html 파일 요소들을 매치하기 위해 작성
 document.addEventListener('DOMContentLoaded', function(e){
 	document.querySelector('#name').value = '홍길동';
 	
@@ -39,30 +47,56 @@ document.addEventListener('DOMContentLoaded', function(e){
 	}
 	document.querySelector('#tableList thead').appendChild(tr);
 	
+	
+	
+	
 	//tbody영역
 	json.forEach(function(item, idx){
 		//console.log(item, idx); //item > 데이터한건
-		let tr = document.createElement('tr');
-		for(let prop in item){		
-			let td = document.createElement('td');
-			td.innerText = item[prop];
-			tr.appendChild(td);
-		}
-		document.querySelector('#tableList tbody').appendChild(tr);
+		//let tr = document.createElement('tr');
+		//makeRow(item);
+		//for(let prop in item){		
+		//	let td = document.createElement('td');
+		//	td.innerText = item[prop];
+		//	tr.appendChild(td);
+		//}
+		document.querySelector('#tableList tbody').appendChild(makeRow(item));
 	});
 });
 //성별선택 이벤트 연결 
-document.querySelector('#genderList').addEventListener('change', genderChange);
-function genderChange(e){
-	//성별선택 > tbody지우기 > 새로운목록출력
-	let gender;
-	gender = document.querySelector('#genderList').value;
-	document.querySelector('tbody').innerText = '';
-	let tr = document.createElement('tr');
-		for(let prop in item){		
-			let td = document.createElement('td');
-			td.innerText = item[prop];
-			tr.appendChild(td);
+document.querySelector('#genderList').addEventListener('change', function(e){
+	showList(this.value);
+	//reduceList(this.value);
+});
+function showList(gender = 'Male'){
+	
+	document.querySelector('#tableList tbody').innerHTML = '';
+	json.forEach(function(item){
+		if(item.gender == gender || gender == 'All'){
+			document.querySelector('#tableList tbody').appendChild(makeRow(item));
 		}
-		document.querySelector('#tableList tbody').appendChild(tr);
+	});
+}
+function reduceList(gender = 'Female'){
+	let tbody = document.querySelector('tbody');
+	tbody.innerHTML = '';
+	json.reduce((acc, item) => {
+		if(item.gender == gender){
+			let tr = makeRow(item);
+			acc.appendChild(tr);
+		}
+		return acc;
+	}, tbody);
+}
+
+
+
+function makeRow(obj = {}){
+	let trTag = document.createElement('tr');
+	for(let prop in obj){
+		let tdTag = document.createElement('td');
+		tdTag.innerText = obj[prop];
+		trTag.appendChild(tdTag);
+	}
+	return trTag;
 }
