@@ -2,7 +2,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style>
+div.reply div{
+	margin: auto;
+}
+div.reply span{
+	display: inline-block;
+}
+div.reply ul{
+	list-style-type: none;
+	margin-top: 10px;
+}
+div.reply li{
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
 
+.center{
+  display: block;
+  text-align: center;
+  width: 60%;
+  margin: auto;
+}
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
 	
 	${board }
 	<h3>상세조회</h3>
@@ -46,8 +82,39 @@
 	 	</tr>
 	 </table>
 	</form>
-
+	
+	<!-- 댓글목록 -->
+	<div class="container reply" stype="width: 80%;">
+		<div class="header">
+			<input class="col-sm-8" type="text" name="reply" id="reply">
+			<button class="col-sm-3 addReply">댓글등록</button>
+		</div>
+		<div class="content">		
+			<ul>
+				<li>
+					<span class="col-sm-2">글번호</span>
+					<span class="col-sm-5">내용</span>
+					<span class="col-sm-2">작성자</span>
+				    <span class="col-sm-2">삭제</span>
+				</li>
+				<li><hr></li>
+			</ul>
+		</div>
+		<div class="footer">	
+			<div class="center">
+				<div class="pagination">
+					<a href="">1</a>
+					<a href="">2</a>
+					<a href="" class="active">3</a>
+				</div>
+			</div>
+		</div>
+	</div>
 <script>
+	const bno = "${board.boardNo}";
+	const replyer = "${logid}";
+	console.log(bno);
+
 	function removeFunc(){
 		let form = document.querySelector('form');
 		console.log(form.action);
@@ -55,3 +122,4 @@
 		form.submit();
 	}
 </script>
+<script src="static/js/boardService.js"></script>

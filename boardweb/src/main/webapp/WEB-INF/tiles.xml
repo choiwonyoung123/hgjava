@@ -24,6 +24,6 @@
    	<put-attribute name="body" value="/WEB-INF/view/member/{1}.jsp" />
   </definition>
   <definition name="WILDCARD:*/*" extends="myapp.homepage">
-   	<put-attribute name="b ody" value="/WEB-INF/view/{1}/{2}.jsp" />
+   	<put-attribute name="body" value="/WEB-INF/view/{1}/{2}.jsp" />
   </definition>
 </tiles-definitions>

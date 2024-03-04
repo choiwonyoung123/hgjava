@@ -13,7 +13,7 @@ public class MainControl implements Control {
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//java파일: src/main/java
 		//web파일: src/main/webapp
-		String path = "WEB-INF/view/main1.jsp";
+		String path = "board/main1.tiles";
 		//req.getRequestDispatcher(path).forward(req, resp);
 		RequestDispatcher dispatch = req.getRequestDispatcher(path);
 		dispatch.forward(req, resp);
