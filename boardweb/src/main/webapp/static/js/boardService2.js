@@ -31,40 +31,59 @@ document.querySelector('.addReply').addEventListener('click', addReplyFnc);
 function addReplyFnc(e){
 	//input 속성의 name이 'reply'인 값 가져오기
 	let reply = document.querySelector('input[name="reply"]').value;
+	if(!reply){
+		alert('댓글을 입력하세요');
+		return;
+	}
 	//let replyer = "${logid}";
 	//XMLHttpRequest 객체 생성
 	const addHtp = new XMLHttpRequest();
+	fetch('addReply.do', {
+		method: 'post',
+		headers: {
+			'Content-type': 'application/x-www-form-urlencoded'
+		},
+		body: 'bno=' + bno + '&reply=' + reply + '&replyer=' + replyer
+	})
+	let result = awiat.result.json();
+	if(result.retCode == 'OK'){
+		alert("등록성공");
+		document.querySelector('.reply ul').value = '';
+		resolve 
+	}
+	
 	//비동기 연결 시작 >> post방식 - addReply.do 화면
-	addHtp.open('post', 'addReply.do');
+	//addHtp.open('post', 'addReply.do');
 	//
-	addHtp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	//addHtp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	//전송 시작 >> 응답 요청 전달 >> 서버의 응답 회신
-	addHtp.send('bno='+bno+'&reply='+reply+'&replyer='+replyer);
+	//addHtp.send('bno='+bno+'&reply='+reply+'&replyer='+replyer);
 	//요청에 대한 응답을 처리하는 콜백함수
-	addHtp.onload = function(e){
+	//addHtp.onload = function(e){
 		//json >> javascript 포맷
-		let result = JSON.parse(addHtp.responseText);
-		if(result.retCode == 'OK'){
-			alert("등록성공")
-			//reply 클래스의 ul에 행 추가
-			document.querySelector('.reply ul').appendChild(makeRow(result.retVal));
-			document.querySelector('#reply').value='';
+	//	let result = JSON.parse(addHtp.responseText);
+	//	if(result.retCode == 'OK'){
+	//		alert("등록성공")
+	//		//reply 클래스의 ul에 행 추가
+	//		document.querySelector('.reply ul').appendChild(makeRow(result.retVal));
+	//		document.querySelector('#reply').value='';
 			
 			//건수 계산 위한 ajax 호출
-			const cntHtp = new XMLHttpRequest();
-			page = 1;
-			replyList();
-			pageList;
-		}
-		else{
-			alert("처리 중 에러");
-		}
-	}
-	console.log(bno, reply, replyer);
+	//		const cntHtp = new XMLHttpRequest();
+	//		page = 1;
+	//		replyList();
+	//		pageList;
+	//	}
+	//	else{
+	//		alert("처리 중 에러");
+	//	}
+	//}
+	//console.log(bno, reply, replyer);
 }
 
 
-//한건등록
+
+//한건등록 
 function makeRow(obj = {}){
 	let fields = ['replyNo', 'reply', 'replyer'];
 	let liTag = document.createElement('li');
@@ -119,52 +138,92 @@ function deleteRow(e){
 		return;
 	}
 	
-	
 	const delHtp = new XMLHttpRequest();
-	delHtp.open('post', 'removeReply.do');
-	delHtp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-	delHtp.send('rno='+rno);
-	delHtp.onload = function(e){
-		console.log(delHtp);
-		const result = JSON.parse(delHtp.responseText);
+	fetch('../removeReply.do', {
+		method: 'post',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		body: 'rno=' + rno
+	})
+	.then(resolve => resolve.json())
+	.then(result => {
 		if(result.retCode == 'OK'){
-			alert(result.retMsg);
-			li.remove();
-		}
-		else{
-			alert(result.retMsg);
-		}
-	}
+				alert(result.retMsg);
+				replyList(page);
+				pageList();
+			}
+			else{
+				alert(result.retMsg);
+			}
+	})
+	.catch(err => console.log(err));
+	
+//	delHtp.open('post', 'removeReply.do');
+//	delHtp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+//	delHtp.send('rno='+rno);
+//	delHtp.onload = function(e){
+//		console.log(delHtp);
+//		const result = JSON.parse(delHtp.responseText);
+//		if(result.retCode == 'OK'){
+//			alert(result.retMsg);
+//			li.remove();
+//		}
+//		else{
+//			alert(result.retMsg);
+//		}
+//	}
 }
 
 //댓글목록
 function replyList(rpage = 1){
 	const xhtp = new XMLHttpRequest();
-	xhtp.open('get', 'replyList.do?bno=' + bno + '&page=' +rpage);
-	xhtp.send();
-	xhtp.onload = function(e){
-		//console.log(xhtp.responseText);
-		const data = JSON.parse(xhtp.responseText);
-		//기존목록 삭제
-		document.querySelectorAll('li[data-rno]').forEach(item => item.remove());
-		//목록
-		data.forEach(item => {
-			document.querySelector('.reply ul').appendChild(makeRow2(item));
-		});
-	}
+	fetch('../replyList.do?bno=' + bno + '&page=' + rpage)
+	.then(resolve => resolve.json())
+	.then(result => {
+		if(result.retCode == 'OK'){
+			alert('성공');
+		}
+		else{
+			alert('실패');
+		}
+	})
+	
+	
+//	xhtp.open('get', 'replyList.do?bno=' + bno + '&page=' +rpage);
+//	xhtp.send();
+//	xhtp.onload = function(e){
+//		//console.log(xhtp.responseText);
+//		const data = JSON.parse(xhtp.responseText);
+//		//기존목록 삭제
+//		document.querySelectorAll('li[data-rno]').forEach(item => item.remove());
+//		//목록
+//		data.forEach(item => {
+//			document.querySelector('.reply ul').appendChild(makeRow2(item));
+//		});
+//	}
 }
 replyList();
 
 //페이징 replyList.do
 function pageList(){
-	fetch('getTotal.do?bno=' + bno)
-	.then(resolve => resolve.json())
-	.then(createPageElement)
-	.catch(function(err){
-		console.log('error==>', err);
-	})
+	const plistHtp = new XMLHttpRequest();
+//	fetch('../getTotal.do?bno=' + bno)
+//	.then(resolve => resolve.json())
+//	.then(result => {
+//		if(result.retCode == 'OK'){
+//			alert('성공');
+//		}
+//		else{
+//			alert('실패');
+//		}
+//	})
 	
-	function createPageElement(result){}
+	
+	plistHtp.open('get', 'getTotal.do?bno=' + bno);
+	plistHtp.send();
+	plistHtp.onload = function(e){
+	//기존내용 초기화
 	document.querySelector('div.pagination').innerHTML = '';
 	let result = JSON.parse(plistHtp.responseText);
 	let totalCnt = result.totalCount;
@@ -177,6 +236,7 @@ function pageList(){
 	endPage = endPage > realEnd ? realEnd : endPage;
 	next = endPage < realEnd ? true : false;
 	prev = startPage > 1;
+	
 	if(prev){
 		let aTag = document.createElement('a');
 		//aTag.innerText = startPage - 1;
@@ -195,13 +255,14 @@ function pageList(){
 		document.querySelector('div.pagination').appendChild(aTag);
 	}
 	if(next){
-		let aTag = document.createElement('a');
+	let aTag = document.createElement('a');
 		//aTag.innerText = endPage + 1;
 		aTag.innerHTML = '&raquo';
 		aTag.href = '#';
 		aTag.setAttribute('data-page', endPage + 1);
 		document.querySelector('div.pagination').appendChild(aTag);
 	}
-	pagingFunc();	
+	pagingFunc();
+	}
 }
 pageList();

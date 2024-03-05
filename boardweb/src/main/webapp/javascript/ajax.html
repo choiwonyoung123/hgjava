@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script>
+		console.log('javascript/ajax.html');
+		
+		//비동기방식 처리
+		//1초 이후 콘솔출력
+		
+		//setTimeout(function() {
+		//	console.log('hello-1');
+		//}, 1000);
+		//setTimeout(function() {
+		//	console.log('hello-3');
+		//}, 3000);
+		//setTimeout(function() {
+		//	console.log('hello-2');
+		//}, 2000);
+		
+		//동기방식 처리 >> 차례로
+		//setTimeout(function() {
+		//	console.log('hello-1');
+		//	setTimeout(function() {
+		//		console.log('hello-3');
+		//		setTimeout(function() {
+		//			console.log('hello-2');
+		//		}, 5000);
+		//	}, 6000);
+		//  }, 4000);
+		
+		
+		
+		//fetch
+		
+		//fetch('../replyList.do?bno=' + 99 + '&page=' + 1).then(function(resolve){
+		//	console.log(resolve);
+			//문자열 >> 자바스크립트객체 변환
+		//	return resolve.json();
+		// })
+
+		//<fetch get방식>
+		fetch('../replyList.do?bno=' + 99 + '&page=' + 1)
+		.then(resolve => resolve.json())
+		.then(function(result){
+			console.log(result);
+			result.forEach(reply => {
+				let li = document.createElement('li');
+				li.innerText = reply.replyer;
+				document.querySelector('#show').append(li);
+			})
+		})
+		//.then(listFunc)
+		//에러 발생하는 부분
+		.catch(function(err){
+			console.log('error==>',                                                                                  err);
+		})
+		
+		//const listFunc = function(result){
+		//	console.log(result);
+		//	result.forEach(reply => {
+		//		let li = document.createElement('li');
+		//		li.innerText = reply.replyer;
+		//		document.querySelector('#show').append(li);
+		//	})
+		// }
+		
+		//<fetch post방식>
+		async function asyncFunc(){	
+			try{				
+				let promi1 = await fetch('../addReply.do', {
+					//요청방식
+					method: 'post',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					body: 'bno=' + 4 + '&reply=' + 'fetch_test' + '&replyer=' + 'newbie'
+				})
+				let json1 = awiat. prom1.json();
+				if(json1.retCode == 'OK'){
+					alert('성공');
+					let prom2 = await fetch('../replyList.do?bno=' + 99 + '&page=' + 1)
+					let json2 = prom2.json();
+					json.forEach((reply, idx, ary) => {
+						let li = document.createElement('li');
+						li.innerText = reply.replyer;
+						document.querySelector('#show').append('li');
+					})
+				}	
+				else{
+					alert('실패');
+				}
+			}catch(err){
+				console.log(err);	
+			}
+	
+		
+		
+		//목록출력
+		async function list(){
+			let resolv = await resolve.json();
+			result.fe = await fetch('../replyList.do?bno=' + 99 + '&page=' + 1);
+			let resultorEach((reply, idx, ary) => {
+				let li = document.createElement('li');
+				li.innerText = reply.replyer;
+				document.querySelector('#show').append('li');
+			})
+		}
+
+		let resolve = await fetch('../replyList.do?bno=' + 99 + '&page=' + 1);
+		let result = await resolve.json();
+		result.forEach((reply, idx, ary) => {
+			console.log(reply);
+			let li = document.createElement('li');
+			li.innerText = reply.replyer;
+			document.querySelector('#show').append('li');
+		})
+		.then(resolve => resolve.json())
+		.then(listFunc)
+		.catch(function(err){
+			console.log('error==>', err);
+		})
+		
+		
+		
+		function listFunc(result){
+			result.forEach((reply, idx, ary) => {
+				console.log(reply);
+				let li = document.createElement('li');
+				li.innerText = reply.replyer;
+				document.querySelector('#show').append('li');
+				
+			})
+		 }
+		
+	</script>
+</body>
+</html>
