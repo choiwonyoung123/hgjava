@@ -13,8 +13,8 @@
       fetch('../getSidoInfo.do') //해당 url에 get 형식의 요청 전송 >> 성공하면 응답 반환(resolve)
       .then(resolve => resolve.json()) //응답받은 본문을 json 형식을 javascript 형식으로 파싱(변환)
       .then(result => {
-    	  //console.log(result); //[{sido: '대구광역시', cnt: 18}] 형태
-    	  result.forEach(item => {
+    	  //cresult.forEach(item => {onsole.log(result); //[{sido: '대구광역시', cnt: 18}] 형태
+    	  
     		  dataAry.push([item.sido, item.cnt]); //for(let prop in item){ ary.push(item[prop])) }
     	  });
     	  console.log(dataAry);
