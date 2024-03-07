@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>jquery1.html</title>
+	<!--
+	자바스크립트 라이브러리 jquery 
+	jquery 파일 >> project package의 프로젝트 이름 내에 폴더에 저장(ctrl+s)
+	-->
+	<script src="jquery-3.7.1.min.js"></script>
+</head>
+<body>
+	<div id="show">
+		<ul>
+			<li>홍길동</li>
+			<li>김민석</li>
+		</ul>
+	</div>
+	<script>
+		let ulTag = $('<ul />') // jquery객체, ul태그 만들기, createElement('ul')과 같다
+		.append($('<li />')) // .을 사용해서 뒤에 계속 작성, append함수로 상위 태그에 붙이기
+		.text('홍길동') // 태그에 텍스트 넣기
+		.append($('<li />'))
+		.text('김민석');
+		console.log(ulTag);
+		$('#show').append(ulTag); // 태그없이 id값(선택자)을 가진 태그에 붙이기
+	</script>
+</body>
+</html>

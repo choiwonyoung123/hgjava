@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #show {
+      background: yellow;
+      width: 400px;
+      height: 205px;
+    }
+
+    #show span {
+      display: inline-block;
+      width: 90px;
+      border: 1px solid green;
+      background: pink;
+      margin: 1px;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" id="keyword">
+  <br>
+  <div id="show">
+    <span>Lorem</span>
+    <span>ipsum</span>
+    <span>dolor</span>
+    <span>sit,</span>
+    <span>amet</span>
+    <span>consectetur</span>
+    <span>adipisicing</span>
+    <span>elit.</span>
+    <span>Maxime,</span>
+    <span>dicta</span>
+    <span>officia</span>
+    <span>similique</span>
+    <span>ratione</span>
+    <span>id</span>
+    <span>labore</span>
+    <span>tempora</span>
+    <span>iure</span>
+    <span>harum</span>
+    <span>provident,</span>
+    <span>deleniti</span>
+    <span>odio</span>
+    <span>esse</span>
+    <span>officiis</span>
+    <span>illo</span>
+    <span>eos</span>
+    <span>illum</span>
+    <span>quae</span>
+    <span>veritatis</span>
+    <span>vero</span>
+    <span>doloribus.</span>
+  </div>
+  <div>
+  	<span id="timer"></span>
+  	<span id=></span>
+  </div>
+
+  <script>
+	//값입력 >> 삭제
+	document.querySelector('#keyword').addEventListener('keypress', deleteTarget);
+	function deleteTarget(e){
+		if(e.keyCode == 13){ //엔터키 눌렀을때 이벤트 실행
+			let kw = document.querySelector('#keyword').value; //input태그 값 가져오기
+			document.querySelectorAll('#show span') //show의 span태그 배열로 가져오기
+			.forEach(item  => {
+				if(item.innerText == kw){ //배열로 가져온 span태그들의 텍스트 값을 키워드와 비교
+					//alert("동일");
+					//item.innerText == '';
+					item.remove(); //해당하는 span태그 자체 삭제
+				}
+				//console.log(item.innerText);
+			})		
+			document.querySelector('#keyword').value = '';
+		}
+	}
+	
+	const obj = {
+		name: 'hong',
+		age: 20,
+	 	showInfo: function(){
+	 		return `${this.name}, ${this.age}`;
+	 	},
+		showAge() {
+			return `${this.age}`;
+		}
+	}
+	
+	Date.prototype.format = function(){
+		let yyyy = this.getFullYear(); // 2024
+		let MM = this.getMonth() + 1; // 3
+		let dd = this.getDate(); // 7
+		let HH = this.getHours(); //시
+		let mm = this.getMinutes(); //분
+		let ss = this.getSeconds(); //초
+		
+		MM = ('0' + MM).slice(-2);
+		dd = ('0' + dd).slice(-2);
+		HH = ('0' + HH).slice(-2);
+		mm = ('0' + mm).slice(-2);
+		ss = ('0' + ss).slice(-2);
+		
+		return `${yyyy}-${MM}-${dd} ${HH}:${mm}:${ss}`;
+	}
+	
+	//let timing = 100;
+	
+	//let job = setInerval(function(){
+		//화면상 span 개수 체크
+		//let now = new Date();
+		//document.querySelector('#timer').innerText = now.format();
+		//시간 감소
+	//	let clearCnt = 0;
+	//	timing--;
+	//	if(clearCnt == 0 && timing >= 0){
+	//		alert('성공');
+	//		document.querySelector('#keyword').setAttribute('disabled', true);
+	//		clearInterval(job); //작업 종료
+	//	}
+	//	if(timing < 0){
+	//		alert('실패');
+	//		document.querySelector('#keyword').setAttribute('disabled', true);
+	//		clearInterval(job); //작업 종료
+	//	}
+	// }, 1000);
+  </script>
+</body>
+
+</html>

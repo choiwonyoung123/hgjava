@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <style>
+    #show {
+      background: yellow;
+      width: 400px;
+      height: 205px;
+    }
+
+    #show span {
+      display: inline-block;
+      width: 90px;
+      border: 1px solid green;
+      background: pink;
+      margin: 1px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <select class="left" multiple style="height:150px">
+    <option value="">hello1</option>
+    <option value="">hello2</option>
+    <option value="">hello3</option>
+    <option value="">hello4</option>
+    <option value="">hello5</option>
+  </select>
+
+  <button id="leftToRight">+</button>
+  <button id="rightToLeft">-</button>
+
+  <select class="right" multiple style="height:150px">
+    <option value="">world1</option>
+    <option value="">world2</option>
+    <option value="">world3</option>
+    <option value="">world4</option>
+    <option value="">world5</option>
+  </select>
+  
+  <script>
+  	// 옵션태그 >> $('.left option:selected')
+  	// 인풋태그 >> $('.left input:checked')
+  	//jquery 방식
+  	$('#leftToRight').on('click', function(e){
+  		//왼쪽에서 선택된 옵션을 오른쪽에 붙이기
+ 		$('.right').append($('.left option:selected'));
+  	})
+  	//javascript 방식
+  	//document.querySelector('#leftToRight').addEventListener('click', function(e){
+  	//	document.querySelectorAll('.left option').forEach(item => {
+  	//		if(item.selected){
+  	//			document.querySelector('.right').append(item);
+  	//		}
+  	//	})
+  	//})
+  	
+  	//jquery 방식
+  	$('#rightToLeft').on('click', function(e){
+  		//오른쪽에서 선택된 옵션을 왼쪽에 붙이기
+  		$('.left').append($('.right option:selected'));
+  	})
+  	//javascript 방식
+  	//document.querySelector('#rightToLeft').addEventListener('click', function(e){
+  	//	document.querySelectorAll('.right option').forEach(item => {
+  	//		if(item.selected){
+  	//			document.querySelector('.left').append(item);
+  	//		}
+  	//	})
+  	//})
+  	//버튼태그 모두 가져오기
+  	let btns = document.getElementsByTagName('button');
+  	console.log(btns);
+  </script>
+</body>
+
+</html>
