@@ -27,4 +27,5 @@ public interface BoardMapper {
 	//도서등록
 	int insertBook(Book book);
 	int deleteBook(String bcode);
+	
 }

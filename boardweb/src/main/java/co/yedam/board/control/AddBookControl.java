@@ -21,7 +21,7 @@ public class AddBookControl implements Control {
 		//html input id값 파라미터로 가져오기
 		String bcode = req.getParameter("bcode");
 		String bname = req.getParameter("bname");
-		String author = req.getParameter("bauthor");
+		String author = req.getParameter("bauth");
 		String press = req.getParameter("bpress");
 		String price = req.getParameter("bprice");
 		//객체에 데이터 저장

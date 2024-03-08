@@ -20,4 +20,5 @@ public interface BoardService {
 	List<Book> bookList();
 	boolean addBook(Book book);
 	boolean removeBook(String bcode);
+	
 }

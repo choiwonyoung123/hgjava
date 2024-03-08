@@ -21,6 +21,11 @@ public class ReplyServiceImpl implements ReplyService{
 	public List<Reply> replyList(SearchVO search) {
 		return mapper.selectList(search);
 	}
+	
+	@Override
+	public List<Reply> replyList2(int bno) {
+		return mapper.selectList2(bno);
+	}
 
 	//등록
 	@Override
@@ -49,5 +54,7 @@ public class ReplyServiceImpl implements ReplyService{
 	public List<Map<String, Object>> getCntSido() {
 		return mapper.countPerSido();
 	}
+
+
 	
 }

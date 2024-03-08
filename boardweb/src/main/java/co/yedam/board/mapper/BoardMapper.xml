@@ -33,6 +33,7 @@
             ) A
     WHERE   A.RN > (#{page} - 1) * 5
   </select>
+  
   <select id ="getTotalCnt" resultType="int" parameterType="search">
   	select count(*)
   	from tbl_board

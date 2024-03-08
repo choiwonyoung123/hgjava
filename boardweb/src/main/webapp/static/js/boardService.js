@@ -164,13 +164,12 @@ function pageList(){
 		console.log('error==>', err);
 	})
 	
-	function createPageElement(result){}
+	function createPageElement(result){
 	document.querySelector('div.pagination').innerHTML = '';
-	let result = JSON.parse(plistHtp.responseText);
+	//let result = JSON.parse(plistHtp.responseText);
 	let totalCnt = result.totalCount;
 	let realEnd = Math.ceil(totalCnt / 5);
 	let next, prev;
-	//1~5, 6~10 페이지
 	let startPage, endPage;
 	endPage = Math.ceil(page/5) * 5;
 	startPage = endPage - 4;
@@ -202,6 +201,7 @@ function pageList(){
 		aTag.setAttribute('data-page', endPage + 1);
 		document.querySelector('div.pagination').appendChild(aTag);
 	}
-	pagingFunc();	
+	pagingFunc();
+	}
 }
 pageList();

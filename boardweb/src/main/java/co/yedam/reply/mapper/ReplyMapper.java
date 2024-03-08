@@ -10,6 +10,7 @@ import co.yedam.reply.Reply;
 public interface ReplyMapper {
 	//목록, 페이징처리
 	List<Reply> selectList(SearchVO search);
+	List<Reply> selectList2(int bno);
 	//등록
 	int insertReply(Reply reply);
 	//삭제
@@ -24,4 +25,5 @@ public interface ReplyMapper {
 	
 	//차트
 	List<Map<String, Object>> countPerSido();
+	
 }

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+	<script>
+		//dom 요소 로딩후 처리 >> 스크립트코드가 화면코드보다 먼저 나올때
+		$(document).ready(function(e){
+			$('#addBtn').on('click', function(e){
+			let bcode = $('#bcode').val();
+			let bname = $('#bname').val();
+			let bauth = $('#bauthor').val();
+			let bpress = $('#bpress').val();
+			let bprice = $('#bprice').val();
+				//ajax 호출
+				$.ajax({
+					url: '../addBook.do', //url
+					method: 'post', //요청방식
+					data: {bcode, bname, bauth, bpress, bprice}, //데이터 >> 키:값 형태
+					dataType: 'json' //데이터타입
+				})
+				//요청 성공시
+				.done(function(result){
+					console.log(result); //OK or NG
+					if(result.retCode == 'OK'){
+						alert('등록완료');
+						$('<tr />').append(
+						$('<td />').text(bcode),
+						$('<td />').text(bname),
+						$('<td />').text(bauth))
+						.appendTo($('table:nth-of-type(2) tbody'));
+					}
+					else{
+						alert('등록실패');
+					}
+				})
+				//요청 실패시
+				.fail(function(err){
+					console.log(err);
+				})
+				//항상
+				.always(function(result){
+					console.log('처리완료');
+				})
+				//$.post() 방식 >> url값, 넘겨줄 데이터, 콜백함수
+				//넘겨줄데이터 >> {키 : 값} 형태
+				//$.post('../addBook.do', {bcode, bname, bauth, bpress, bprice}, function(result){
+					//console.log(result);
+					//if(result.retCode == 'OK'){
+						//alert('정상 등록 완료');
+						//tbody에 추가
+						//$('<tr />').append(
+						//$('<td />').text(item.bookCode),
+						//$('<td />').text(item.bookName),
+						//$('<td />').text(item.author))
+						//.appendTo($('table:nth-of-type(2) tbody'));
+					//}
+					//else{
+						//alert('등록 실패');
+					//}
+				//})
+			})
+		})
+		//$.get() 방식 >> url값, 콜백함수
+		$.get('../bookList.do', function(result){
+			console.log(result);
+			//javascript 메서드
+			result.forEach((item, idx, ary) => {
+				console.log(item, idx, ary);	
+			});
+			
+			//jquery 메서드
+			$(result).each((idx, item, ary) => {
+				console.log(item);
+				$('<tr />').append(
+				$('<td />').text(item.bookCode),
+				$('<td />').text(item.bookName),
+				$('<td />').text(item.author))
+				.appendTo($('table:nth-of-type(2) tbody'));
+				//.appendTo($('table:eq(1) tbody'));
+			});
+		});
+	</script>
+	<table class="table">
+		<tr>
+			<th>도서코드</th>
+			<td><input type="text" id="bcode" value="B000"></td>
+		</tr>
+		<tr>
+			<th>도서명</th>
+			<td><input type="text" id="bname" value="파워자바"></td>
+		</tr>
+		<tr>
+			<th>저자</th>
+			<td><input type="text" id="bauthor" value="홍길동"></td>
+		</tr>
+		<tr>
+			<th>출판사</th>
+			<td><input type="text" id="bpress" value="길동사"></td>
+		</tr>
+		<tr>
+			<th>금액</th>
+			<td><input type="text" id="bprice" value="15000"></td>
+		</tr>
+		<tr>
+			<td colspan="2" aligh="center">
+				<button id="addBtn">등록</button>
+			</td>
+		</tr>
+	</table>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>도서코드</th>
+				<th>도서명</th>
+				<th>저자</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</body>
+</html>
