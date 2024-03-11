@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script>
+		fetch('url')
+		.then(function(result){
+			return result.json(); //자바스크립트 객체
+		})
+		.then(function(result){
+			
+		})
+		.catch(function(err){
+			
+		})
+		//promise객체 = 약속
+		//매개값 >> resolve(실행완료하면실행), reject(에러있으면실행)
+		const p1 = new Promise(function(resolve, reject){
+			//매개값 >> 실행함수, 시간(milisecond)
+			setTimeout(function(){
+				resolve('OK'); //값 전달 >> then메서드 호출
+				//reject('NG'); //값 전달 >> catch메서드 호출
+			}, 1000) //1초 후에 실행, 전달 받음
+		});
+		//p1 실행완료하면 then 실행
+		//메소드 체이닝
+		p1
+		.then(function(result){
+			console.log('then = ', result);
+			//consoles.log('hello'); >> 오류이므로 실행하지 않고 catch 실행
+			return 'hello'; //promise객체로 반환
+		})
+		/*
+		const p2 = p1.then(function(result){
+			console.log('then = ', result);
+			//consoles.log('hello');
+			return 'hello';
+		}).catch(function(err){
+			console.log('catch = ', err);
+		})*/
+		/*
+		const p2 = p1.then(function(result){
+			console.log('then = ', result);
+			//consoles.log('hello');
+			return new Promise(function(reslove, reject){
+				resolve('world');
+				reject('error world');
+			});
+		}).catch(function(err){
+			console.log('catch = ', err);
+		})*/
+		
+		
+		
+		.then(function(result){
+			console.log('then2 = ', result);
+			return 'world';
+		})
+		.then(function(result){
+			console.log('then3 = ', result);
+		})
+		//p1 실행실패하면 catch 실행
+		.catch(function(err){
+			console.log('catch = ', err);
+		})
+	</script>
+</body>
+</html>

@@ -13,7 +13,7 @@
 //	console.log(result);
 //}
 
-import service from '/boardAjax.js';
+import service from './boardAjax.js';
 
 
 //메서드 호출

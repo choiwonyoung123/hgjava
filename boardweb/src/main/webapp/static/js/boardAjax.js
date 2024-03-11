@@ -43,7 +43,8 @@ const service = {
 		$.ajax({
 			url: 'addReply.do',
 			method: 'post',
-			data: param
+			data: param,
+			//dataType: 'json'
 		})
 		.done(successCall)
 		.fail(errorCall)
